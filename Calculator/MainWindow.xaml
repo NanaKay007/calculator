@@ -1,0 +1,122 @@
+﻿<Window x:Class="Calculator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Calculator"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="525" Width="350">
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label Content="0" x:Name="ResultLabel"
+            Grid.ColumnSpan="4" 
+            FontSize="60"
+               HorizontalAlignment="Right" 
+               VerticalAlignment="Bottom"/>
+        <Button Margin="5" x:Name="acButton" 
+                Content="AC" 
+                Grid.Row="1" 
+                Grid.Column="0"/>
+        <Button Margin="5" x:Name="addSubtractButton"
+                Click="AddSubtractButton_Click"
+                Content="+/-" 
+                Grid.Row="1" 
+                Grid.Column="1"/>
+        <Button Margin="5" x:Name="percentButton" 
+                Click="PercentButton_Click"
+                Content="%" Grid.Row="1" 
+                Grid.Column="2"/>
+        <Button Margin="5" x:Name="divideButton"
+                Click="OperationButton_Click"
+                Content="/" Grid.Row="1"
+                Grid.Column="3"/>
+        <Button Margin="5" x:Name="sevenButton" 
+                Content="7"
+                Grid.Row="2"
+                Click="NumberButton_Click"
+                Grid.Column="0"/>
+        <Button Margin="5" x:Name="eightButton" 
+                Content="8" 
+                Grid.Row="2"
+                Click="NumberButton_Click"
+                Grid.Column="1"/>
+        <Button Margin="5" x:Name="nineButton" 
+                Click="NumberButton_Click"
+                Content="9" Grid.Row="2" 
+                Grid.Column="2"/>
+        <Button Margin="5" x:Name="multiplyButton" 
+                Click="OperationButton_Click"
+                Content="*"
+                Grid.Row="2" 
+                Grid.Column="3"/>
+        <Button Margin="5" x:Name="fourButton" 
+                Content="4" 
+                Click="NumberButton_Click"
+                Grid.Row="3"
+                Grid.Column="0"/>
+        <Button Margin="5" x:Name="fiveButton"
+                Content="5" Grid.Row="3" 
+                Click="NumberButton_Click"
+                Grid.Column="1"/>
+        <Button Margin="5" x:Name="sixButton" 
+                Content="6" Grid.Row="3" 
+                Click="NumberButton_Click"
+                Grid.Column="2"/>
+        <Button Margin="5" x:Name="subtractButton" 
+                Click="OperationButton_Click"
+                Content="-" 
+                Grid.Row="3" 
+                Grid.Column="3"/>
+        <Button Margin="5" x:Name="oneButton" 
+                Content="1" 
+                Grid.Row="4" 
+                Click="NumberButton_Click"
+                Grid.Column="0"/>
+        <Button Margin="5" x:Name="twoButton" 
+                Content="2" 
+                Grid.Row="4" 
+                Click="NumberButton_Click"
+                Grid.Column="1"/>
+        <Button Margin="5" x:Name="threeButton" 
+                Content="3" 
+                Grid.Row="4" 
+                Click="NumberButton_Click"
+                Grid.Column="2"/>
+        <Button Margin="5" x:Name="addButton" 
+                Click="OperationButton_Click"
+                Content="+" 
+                Grid.Row="4"
+                Grid.Column="3"/>
+        <Button Margin="5" x:Name="zeroButton"
+                Content="0" 
+                Grid.ColumnSpan="2"
+                Click="NumberButton_Click"
+                Grid.Row="5" 
+                Grid.Column="0"/>
+        <Button Margin="5" x:Name="decimalButton"
+                Click="DecimalButton_Click"
+                Content="."
+                Grid.Row="5" 
+                Grid.Column="2"/>
+        <Button Margin="5" x:Name="ResultButton" 
+                Click="ResultButton_Click"
+                Content="=" 
+                Grid.Row="5" 
+                Grid.Column="3"
+                    />
+
+    </Grid>
+</Window>
