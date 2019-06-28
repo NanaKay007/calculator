@@ -391,6 +391,7 @@ namespace shuntingYard
                     double first = (double)n1;
                     double ans  = Math.Pow(first,second);
                     return (float)ans;
+                    
                 default:
                     return 0;
 

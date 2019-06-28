@@ -5,9 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Calculator"
         mc:Ignorable="d"
-        Title="MainWindow" Height="525" Width="350">
-    <Grid Margin="10">
+        Title="MainWindow" Height="550" Width="850">
+    <Grid Margin="10" Background="#FF1F1E1E">
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="0.1*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -20,103 +27,330 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+                           
         <Label Content="0" x:Name="ResultLabel"
-            Grid.ColumnSpan="4" 
+            Grid.ColumnSpan="11" 
             FontSize="60"
+               Foreground="White"
                HorizontalAlignment="Right" 
                VerticalAlignment="Bottom"/>
         <Button Margin="5" x:Name="acButton" 
+                Click="AcButton_Click"
                 Content="AC" 
-                Grid.Row="1" 
-                Grid.Column="0"/>
-        <Button Margin="5" x:Name="addSubtractButton"
-                Click="OperationButton_Click"
+                Grid.Row="2" 
+                Grid.Column="7"/>
+        <Button Margin="5" x:Name="exponent"
+                Click="simple_operator_click"
                 Content="^" 
-                Grid.Row="1" 
-                Grid.Column="1"/>
+                Grid.Row="2" 
+                Grid.Column="8"/>
         <Button Margin="5" x:Name="percentButton" 
                 Click="PercentButton_Click"
-                Content="%" Grid.Row="1" 
-                Grid.Column="2"/>
+                Content="%" Grid.Row="2" 
+                Grid.Column="9"/>
+        <Button Margin="5" x:Name="backSpaceButton"
+                Click="BackSpaceButton_Click"
+               
+                Content="DEL" Grid.Row="1"
+                Background="Red"
+                Foreground="White"
+                Grid.Column="10"/>
         <Button Margin="5" x:Name="divideButton"
-                Click="OperationButton_Click"
-                Content="/" Grid.Row="1"
-                Grid.Column="3"/>
+                 Click="simple_operator_click"
+                Content="/" Grid.Row="2"
+                Grid.Column="10"/>
         <Button Margin="5" x:Name="sevenButton" 
                 Content="7"
-                Grid.Row="2"
+                Grid.Row="3"
                 Click="NumberButton_Click"
-                Grid.Column="0"/>
+                Grid.Column="7"/>
         <Button Margin="5" x:Name="eightButton" 
                 Content="8" 
-                Grid.Row="2"
+                Grid.Row="3"
                 Click="NumberButton_Click"
-                Grid.Column="1"/>
+                Grid.Column="8"/>
         <Button Margin="5" x:Name="nineButton" 
                 Click="NumberButton_Click"
-                Content="9" Grid.Row="2" 
-                Grid.Column="2"/>
+                Content="9" Grid.Row="3" 
+                Grid.Column="9"/>
         <Button Margin="5" x:Name="multiplyButton" 
-                Click="OperationButton_Click"
+                Click="simple_operator_click"
                 Content="*"
-                Grid.Row="2" 
-                Grid.Column="3"/>
+                Grid.Row="3" 
+                Grid.Column="10"/>
         <Button Margin="5" x:Name="fourButton" 
                 Content="4" 
                 Click="NumberButton_Click"
-                Grid.Row="3"
-                Grid.Column="0"/>
+                Grid.Row="4"
+                Grid.Column="7"/>
         <Button Margin="5" x:Name="fiveButton"
-                Content="5" Grid.Row="3" 
+                Content="5" Grid.Row="4" 
                 Click="NumberButton_Click"
-                Grid.Column="1"/>
+                Grid.Column="8"/>
         <Button Margin="5" x:Name="sixButton" 
-                Content="6" Grid.Row="3" 
+                Content="6" Grid.Row="4" 
                 Click="NumberButton_Click"
-                Grid.Column="2"/>
+                Grid.Column="9"/>
         <Button Margin="5" x:Name="subtractButton" 
-                Click="OperationButton_Click"
+                 Click="simple_operator_click"
                 Content="-" 
-                Grid.Row="3" 
-                Grid.Column="3"/>
+                Grid.Row="4" 
+                Grid.Column="10"/>
         <Button Margin="5" x:Name="oneButton" 
                 Content="1" 
-                Grid.Row="4" 
+                Grid.Row="5" 
                 Click="NumberButton_Click"
-                Grid.Column="0"/>
+                Grid.Column="7"/>
         <Button Margin="5" x:Name="twoButton" 
                 Content="2" 
-                Grid.Row="4" 
+                Grid.Row="5" 
                 Click="NumberButton_Click"
-                Grid.Column="1"/>
+                Grid.Column="8"/>
         <Button Margin="5" x:Name="threeButton" 
                 Content="3" 
-                Grid.Row="4" 
+                Grid.Row="5" 
                 Click="NumberButton_Click"
-                Grid.Column="2"/>
+                Grid.Column="9"/>
         <Button Margin="5" x:Name="addButton" 
-                Click="OperationButton_Click"
+                Click="simple_operator_click"
                 Content="+" 
-                Grid.Row="4"
-                Grid.Column="3"/>
+                Grid.Row="5"
+                Grid.Column="10"/>
         <Button Margin="5" x:Name="zeroButton"
                 Content="0" 
                 Grid.ColumnSpan="2"
                 Click="NumberButton_Click"
-                Grid.Row="5" 
-                Grid.Column="0"/>
+                Grid.Row="6" 
+                Grid.Column="7"/>
         <Button Margin="5" x:Name="decimalButton"
                 Click="DecimalButton_Click"
                 Content="."
-                Grid.Row="5" 
-                Grid.Column="2"/>
+               Grid.Row="6" 
+                Grid.Column="9"/>
         <Button Margin="5" x:Name="ResultButton" 
                 Click="ResultButton_Click"
                 Content="=" 
+                Grid.Row="6" 
+                Grid.Column="10"
+                    />
+        <Button Margin="5" x:Name="openBrace" 
+                Click="OpenBrace_Click"
+                Content="(" 
+                Grid.Row="1" 
+                Grid.Column="0"
+                    />
+        <Button Margin="5" x:Name="closeBrace" 
+                Click="CloseBrace_Click"
+                Content=")" 
+                Grid.Row="1" 
+                Grid.Column="1"
+                    />
+        <Button Margin="5" x:Name="sin" 
+                Click="function_click"
+                Content="sin(x)" 
+                Grid.Row="3" 
+                Grid.Column="1"
+                    />
+        <Button Margin="5" x:Name="cos" 
+               Click="function_click"
+                Content="cos(x)" 
+                Grid.Row="3" 
+                Grid.Column="2"
+                    />
+        <Button Margin="5" x:Name="tan" 
+                Click="function_click"
+                Content="tan(x)" 
+                Grid.Row="3" 
+                Grid.Column="3"
+                    />
+        <Button Margin="5" x:Name="cot" 
+                Click="function_click"
+                Content="cot(x)" 
+                Grid.Row="3" 
+                Grid.Column="4"
+                    />
+        <Button Margin="5" x:Name="asin" 
+                Click="function_click"
+                Content="asin(x)" 
+                Grid.Row="4" 
+                Grid.Column="1"
+                    />
+        <Button Margin="5" x:Name="acos" 
+                Click="function_click"
+                Content="acos(x)" 
+                Grid.Row="4" 
+                Grid.Column="2"
+                    />
+        <Button Margin="5" x:Name="atan" 
+                Click="function_click"
+                Content="atan(x)" 
+                Grid.Row="4" 
+                Grid.Column="3"
+                    />
+        <Button Margin="5" x:Name="sec" 
+                Click="function_click"
+                Content="sec(x)" 
+                Grid.Row="4" 
+                Grid.Column="4"
+                    />
+
+        <Button Margin="5" x:Name="sinh" 
+                Click="function_click"
+                Content="sinh(x)" 
+                Grid.Row="5" 
+                Grid.Column="1"
+                    />
+
+        <Button Margin="5" x:Name="cosec" 
+                Click="function_click"
+                Content="cosec(x)" 
+                Grid.Row="5" 
+                Grid.Column="4"
+                    />
+        <Button Margin="5" x:Name="cosh" 
+                Click="function_click"
+                Content="cosh(x)" 
+                Grid.Row="5" 
+                Grid.Column="2"
+                    />
+        <Button Margin="5" x:Name="tanh" 
+                Click="function_click"
+                Content="tanh(x)" 
                 Grid.Row="5" 
                 Grid.Column="3"
                     />
+        <Button Margin="5" x:Name="ln" 
+                Click="function_click"
+                Content="ln(x)" 
+                Grid.Row="6" 
+                Grid.Column="1"
+                    />
+        <Button Margin="5" x:Name="log" 
+                Click="function_click"
+                Content="log(y)" 
+                Grid.Row="5" 
+                Grid.Column="0"
+                    />
+        <Button Margin="5" x:Name="sqr_root" 
+                Click="function_click"
+                Content="√" 
+                Grid.Row="4" 
+                Grid.Column="0"
+                    />
+        <Button Margin="5" x:Name="factorial" 
+                Click="function_click"
+                Content="n!" 
+                Grid.Row="2" 
+                Grid.Column="1"
+                    />
+        <Button Margin="5,5,6,5" x:Name="exp_ten" 
+                Click="template_function"
+                Grid.Row="1" 
+                Grid.Column="2" Content="10**x"
+                    />
+        <Button Margin="5" x:Name="e" 
+                Click="template_function"
+                Content="e**x" 
+                Grid.Row="6" 
+                Grid.Column="2"
+                    />
+        <Button Margin="5,5,6,5" x:Name="pi" 
+                Click="constant_function"
+                Content="π" 
+                Grid.Row="6" 
+                Grid.Column="3"
+                    />
+        <Button Margin="5" x:Name="up" 
+                Click="navigation_click"
+                Content="▲" 
+                Grid.Row="1" 
+                Grid.Column="3"
+                Background="SkyBlue"
+                Foreground="White"
+                    />
+        <Button Margin="5" x:Name="down" 
+                Click="navigation_click"
+                Content="▼" 
+                Grid.Row="2" 
+                Grid.Column="3"
+                Background="SkyBlue"
+                Foreground="White"
+                    />
+        <Button Margin="5" x:Name="right" 
+                Click="navigation_click"
+                Content="►" 
+                Grid.Row="2" 
+                Grid.Column="4"
+                Background="SkyBlue"
+                Foreground="White"
+                    />
+        <Button Margin="5" x:Name="left" 
+                Click="navigation_click"
+                Content="◄" 
+                Grid.Row="2" 
+                Grid.Column="2"
+                Background="SkyBlue"
+                Foreground="White"
+                    />
+        <Button Margin="4,5,5,5" x:Name="fraction" 
+                Click="Fraction_Click"
+                Content="x/y" 
+                Grid.Row="6" 
+                Grid.Column="4"
+                
+                    />
+        <Button Margin="5,5,6,5" x:Name="squared" 
+                Click="template_function"
+                Content="x**2" 
+                Grid.Row="6" 
+                Grid.Column="5"
+                    />
+        <Button Margin="5" x:Name="cube_root" 
+                Click="function_click"
+                Content="cube_root" 
+                Grid.Row="3"
+                    />
+        <Button Margin="5" x:Name="nth_root" 
+                Click="function_click"
+                Content="nth_root" 
+                Grid.Row="2"
+                    />
 
+        <Button Margin="5" x:Name="absolute" 
+                Click="function_click"
+                Content="abs(x)" 
+                Grid.Row="4" 
+                Grid.Column="5"
+                    />
+
+        <Button Margin="5,5,5,4" x:Name="cubed" 
+                Click="template_function"
+                Content="x**3" 
+                Grid.Row="5" 
+                Grid.Column="5" RenderTransformOrigin="0.451,-1.009"
+                
+                    />
+        <Button Margin="5" x:Name="max" 
+                Click="function_click"
+                Content="max(x,y)" 
+                Grid.Row="2" 
+                Grid.Column="5"
+                
+                    />
+        <Button Margin="5" x:Name="min" 
+                Click="function_click"
+                Content="min(x,y)" 
+                Grid.Row="3" 
+                Grid.Column="5"
+                
+                    />
+        <Button Margin="5" x:Name="logBase"
+                Click="function_click"
+                Grid.Row="6"
+                Grid.Column="0"
+                Content="logB[x](y)"
+                />
     </Grid>
 </Window>
