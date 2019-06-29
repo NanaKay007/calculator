@@ -29,14 +29,18 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-                           
-        <Label Content="0" x:Name="ResultLabel"
+
+        <Label  x:Name="ResultLabel"
             Grid.ColumnSpan="11" 
             FontSize="60"
                Foreground="White"
                HorizontalAlignment="Right" 
-               VerticalAlignment="Bottom"/>
+               VerticalAlignment="Bottom">
+            0
+        </Label>
         <Button Margin="5" x:Name="acButton" 
+                Background="CadetBlue"
+                Foreground="White"
                 Click="AcButton_Click"
                 Content="AC" 
                 Grid.Row="2" 
@@ -138,14 +142,14 @@
         <Button Margin="5" x:Name="openBrace" 
                 Click="OpenBrace_Click"
                 Content="(" 
-                Grid.Row="1" 
-                Grid.Column="0"
+                Grid.Row="2" 
+                Grid.Column="2"
                     />
-        <Button Margin="5" x:Name="closeBrace" 
+        <Button Margin="6,5,5,5" x:Name="closeBrace" 
                 Click="CloseBrace_Click"
                 Content=")" 
-                Grid.Row="1" 
-                Grid.Column="1"
+                Grid.Row="2" 
+                Grid.Column="3"
                     />
         <Button Margin="5" x:Name="sin" 
                 Click="function_click"
@@ -245,14 +249,14 @@
                 Grid.Row="2" 
                 Grid.Column="1"
                     />
-        <Button Margin="5,5,6,5" x:Name="exp_ten" 
+        <Button Margin="6,5,5,5" x:Name="exp_ten" 
                 Click="template_function"
-                Grid.Row="1" 
-                Grid.Column="2" Content="10**x"
+                Grid.Row="2" 
+                Grid.Column="4" Content="10ˣ"
                     />
         <Button Margin="5" x:Name="e" 
-                Click="template_function"
-                Content="e**x" 
+                Click="constant_function"
+                Content="eˣ" 
                 Grid.Row="6" 
                 Grid.Column="2"
                     />
@@ -261,38 +265,6 @@
                 Content="π" 
                 Grid.Row="6" 
                 Grid.Column="3"
-                    />
-        <Button Margin="5" x:Name="up" 
-                Click="navigation_click"
-                Content="▲" 
-                Grid.Row="1" 
-                Grid.Column="3"
-                Background="SkyBlue"
-                Foreground="White"
-                    />
-        <Button Margin="5" x:Name="down" 
-                Click="navigation_click"
-                Content="▼" 
-                Grid.Row="2" 
-                Grid.Column="3"
-                Background="SkyBlue"
-                Foreground="White"
-                    />
-        <Button Margin="5" x:Name="right" 
-                Click="navigation_click"
-                Content="►" 
-                Grid.Row="2" 
-                Grid.Column="4"
-                Background="SkyBlue"
-                Foreground="White"
-                    />
-        <Button Margin="5" x:Name="left" 
-                Click="navigation_click"
-                Content="◄" 
-                Grid.Row="2" 
-                Grid.Column="2"
-                Background="SkyBlue"
-                Foreground="White"
                     />
         <Button Margin="4,5,5,5" x:Name="fraction" 
                 Click="Fraction_Click"
@@ -303,18 +275,18 @@
                     />
         <Button Margin="5,5,6,5" x:Name="squared" 
                 Click="template_function"
-                Content="x**2" 
+                Content="x²" 
                 Grid.Row="6" 
                 Grid.Column="5"
                     />
         <Button Margin="5" x:Name="cube_root" 
                 Click="function_click"
-                Content="cube_root" 
+                Content="³√" 
                 Grid.Row="3"
                     />
         <Button Margin="5" x:Name="nth_root" 
                 Click="function_click"
-                Content="nth_root" 
+                Content="ⁿ√"
                 Grid.Row="2"
                     />
 
@@ -327,7 +299,7 @@
 
         <Button Margin="5,5,5,4" x:Name="cubed" 
                 Click="template_function"
-                Content="x**3" 
+                Content="x³" 
                 Grid.Row="5" 
                 Grid.Column="5" RenderTransformOrigin="0.451,-1.009"
                 
@@ -352,5 +324,17 @@
                 Grid.Column="0"
                 Content="logB[x](y)"
                 />
+        <Button Margin="5" x:Name="comma" 
+            Click="simple_operator_click"
+            Content="," Grid.Row="1" 
+            Grid.Column="9"/>
+        <Button Margin="5" x:Name="open_square_bracket" 
+            Click="simple_operator_click"
+            Content="[" Grid.Row="1" 
+            Grid.Column="7"/>
+        <Button Margin="5" x:Name="square_bracket" 
+            Click="simple_operator_click"
+            Content="]" Grid.Row="1" 
+            Grid.Column="8"/>
     </Grid>
 </Window>

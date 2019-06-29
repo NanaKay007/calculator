@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Input;
 using shuntingYard;
 
 namespace Calculator
@@ -9,18 +10,21 @@ namespace Calculator
     /// </summary>
     public partial class MainWindow : Window
     {
-        private string expression = "";
+        private string expression = "0";
         private Program calcualtor = new Program();
+        
         public MainWindow()
         {
             InitializeComponent();
             acButton.Click += AcButton_Click;
            
             ResultButton.Click += ResultButton_Click;
+            ResultLabel.Cursor = Cursors.IBeam;
         }
 
         private void function_click(object sender, RoutedEventArgs e)
         {
+            
             string function = sender.ToString().Remove(0,32);
             switch (function)
             {
@@ -62,6 +66,46 @@ namespace Calculator
                     ResultLabel.Content = $"sec({ResultLabel.Content})";
                     expression = ResultLabel.Content.ToString();
                     break;
+                //tan
+                case "tan(x)":
+                    ResultLabel.Content = $"tan({ResultLabel.Content})";
+                    expression = ResultLabel.Content.ToString();
+                    break;
+                case "tanh(x)":
+                    ResultLabel.Content = $"tanh({ResultLabel.Content})";
+                    expression = ResultLabel.Content.ToString();
+                    break;
+                case "atan(x)":
+                    ResultLabel.Content = $"atan({ResultLabel.Content})";
+                    expression = ResultLabel.Content.ToString();
+                    break;
+                case "cot(x)":
+                    ResultLabel.Content = $"cot({ResultLabel.Content})";
+                    expression = ResultLabel.Content.ToString();
+                    break;
+                case "√":
+                    ResultLabel.Content = $"√({ResultLabel.Content})";
+                    expression = $"({expression})^0.5";
+                    break;
+                case "³√":
+                    ResultLabel.Content = $"({ResultLabel.Content})^(1/3)";
+                    expression = $"({expression})^(1/3)";
+                    break;
+                case "max(x,y)":
+                    insert_char("max(");
+                    break;
+                case "min(x,y)":
+                    insert_char("min(");
+                    break;
+                case "logB[x](y)":
+                    insert_char("logB");
+                    break;
+                case "log(y)":
+                    insert_char("log(");
+                    break;
+                case "ln(x)":
+                    insert_char("ln(");
+                    break;
                 default:
                     break;
             }
@@ -72,17 +116,34 @@ namespace Calculator
 
         }
 
+        private void insert_char(string item)
+        {
+            if (ResultLabel.Content.ToString() == "0")
+            {
+                ResultLabel.Content = item;
+            }
+            else
+            {
+                ResultLabel.Content += item;
+            }
+            expression = ResultLabel.Content.ToString();
+        }
         private void constant_function(object sender, RoutedEventArgs e)
         {
-
+            string constant = sender.ToString().Remove(0, 32);
+            switch (constant)
+            {
+                case "π":
+                    insert_char("π");
+                    
+                    break;
+                case "eˣ":
+                    insert_char("e^");
+                    break;
+            }
         }
 
         private void Fraction_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void navigation_click(object sender, RoutedEventArgs e)
         {
 
         }
@@ -102,11 +163,8 @@ namespace Calculator
 
         private void simple_operator_click(object sender, RoutedEventArgs e)
         {
-            string value = sender.ToString();
-
-            ResultLabel.Content += value[value.Length - 1].ToString();
-
-            expression = ResultLabel.Content.ToString();
+            string item = sender.ToString().Remove(0, 32);
+            insert_char(item);
             
         }
 

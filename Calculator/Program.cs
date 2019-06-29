@@ -15,15 +15,61 @@ namespace shuntingYard
     {
         private int precedence, associativity;
         private string name;
-        
+        private bool isFunction;
 
         public Operator(string symbol)
         {
             name = symbol;
 
+
             switch (symbol)
             {
-                
+                case "abs":
+                    isFunction = true;
+                    break;
+                case "sin":
+                    isFunction = true;
+                    break;
+                case "asin":
+                    isFunction = true;
+                    break;
+                case "sinh":
+                    isFunction = true;
+                    break;
+                case "max":
+                    isFunction = true;
+                    break;
+                case "min":
+                    isFunction = true;
+                    break;
+                case "log":
+                    isFunction = true;
+                    break;
+                case "cos":
+                    isFunction = true;
+                    break;
+                case "acos":
+                    isFunction = true;
+                    break;
+                case "cosh":
+                    isFunction = true;
+                    break;
+                case "tan":
+                    isFunction = true;
+                    break;
+                case "atan":
+                    isFunction = true;
+                    break;
+                case "tanh":
+                    isFunction = true;
+                    break;
+                case "ln":
+                    isFunction = true;
+                    break;
+                //log with base
+                case "logB":
+                    isFunction = true;
+                    break;
                 case "*":
                     associativity = 1;
                     precedence = 3;
@@ -48,9 +94,16 @@ namespace shuntingYard
                     precedence = 14;
                     break;
                 default:
-                    throw new Exception("invalid operator") ;
+                    if (symbol.Contains("logB"))
+                    {
+                        isFunction = true;
+                        break;
+                    }
+                    throw new Exception("invalid operator");
             }
         }
+
+        public bool IsFunction() => isFunction;
 
         public string GetName() => name;
 
@@ -59,12 +112,12 @@ namespace shuntingYard
             return precedence;
         }
 
-        public static bool operator >(Operator self,Operator other)
+        public static bool operator >(Operator self, Operator other)
         {
             return self.GetPrecedence() > other.GetPrecedence();
         }
 
-        public static bool operator < (Operator self, Operator other)
+        public static bool operator <(Operator self, Operator other)
         {
             return self.precedence < other.GetPrecedence();
         }
@@ -98,7 +151,7 @@ namespace shuntingYard
              * @param : a non-null string of length 0 to max
              *             
              * @return: a Queue containing tokens of the postfix equivalent of the input expression
-             */            
+             */
             Queue<string> Output = new Queue<string>();
             Stack<Operator> Operators = new Stack<Operator>();
 
@@ -112,15 +165,34 @@ namespace shuntingYard
                 {
                     Output.Enqueue(number.ToString());
                 }
+                else if (x == ",")
+                {
+                    //do nothing...maybe not
+                    while (Operators.Peek().GetName() != "(")
+                    {
+                        Output.Enqueue(Operators.Pop().ToString());
+                    }
+                }
                 else
                 {
-                    try
+                    if (x != ")")
                     {
                         Operator token = new Operator(x);
-                        bool breakout = false;
+
+                        if (token.IsFunction())
+                        {
+                            Operators.Push(token);
+                        }
+                        else if (x == "(")
+                        {
+                            Operators.Push(token);
+                        }
+                        else
+                        {
+                            bool breakout = false;
                             while (!breakout && Operators.Count != 0)
                             {
-                                if((Operators.Peek() > token) && Operators.Peek().GetName() != "(" || (Operators.Peek() == token) && Operators.Peek().GetAssociativity() == 1)
+                                if ((Operators.Peek() > token) && Operators.Peek().GetName() != "(" || Operators.Peek().IsFunction() || (Operators.Peek() == token) && Operators.Peek().GetAssociativity() == 1)
                                 {
                                     Operator current = Operators.Pop();
                                     Output.Enqueue(current.ToString());
@@ -130,26 +202,26 @@ namespace shuntingYard
                                     breakout = true;
                                 }
                             }
-                        
-                        Operators.Push(token);
 
-                    }
-                    catch (Exception)
-                    {
-
-                        if (x == ")")
-                        {
-                            while (Operators.Count != 0 && Operators.Peek().GetName() != "(")
-                            {
-                                Operator current = Operators.Pop();
-                                Output.Enqueue(current.ToString());
-                            }
-                            if (Operators.Count != 0 && Operators.Peek().GetName() != "(")
-                            {
-                                Operators.Pop();
-                            }
+                            Operators.Push(token);
                         }
+
+
                     }
+                    else
+                    {
+                        while (Operators.Peek().GetName() != "(")
+                        {
+                            Output.Enqueue(Operators.Pop().ToString());
+                        }
+                        if (Operators.Peek().GetName() == "(")
+                        {
+                            Operators.Pop();
+                        }
+
+
+                    }
+
 
 
                 }
@@ -167,7 +239,7 @@ namespace shuntingYard
             }
 
 
-          
+
             return Output;
 
 
@@ -180,15 +252,15 @@ namespace shuntingYard
             //params: a string expression
             //return: a list of tokens; throws an error if an invalid token is encountered in the expression
 
-           
+
             Regex numberRegex = new Regex(@"\d+\.?\d*");
-            Regex operatorRegex = new Regex(@"[\+\^\-\/\*\)\(]");
+            Regex operatorRegex = new Regex(@"[\+\^\-\/\*\)\(,]|(logB\[\d+\.?\d*\])|(log)|(max)|(min)|(ln)|(cosh)|(cos)|(acos)|(sin)|(sinh)|(asin)|(tan)|(atan)|(tanh)");
 
 
             MatchCollection numberMatches = numberRegex.Matches(expression);
             MatchCollection operatorMatches = operatorRegex.Matches(expression);
 
-            string[] operatorsArray = { "+", "-", "/", "*","^" };
+            string[] operatorsArray = { "+", "-", "/", "*", "^" };
 
             int size = numberMatches.Count + operatorMatches.Count;
 
@@ -197,20 +269,22 @@ namespace shuntingYard
             Queue<Match> numbers = new Queue<Match>();
             Queue<Match> operators = new Queue<Match>();
 
-            foreach(Match number in numberMatches)
+            foreach (Match number in numberMatches)
             {
                 numbers.Enqueue(number);
             }
 
-            foreach(Match oper in operatorMatches)
+            foreach (Match oper in operatorMatches)
             {
                 operators.Enqueue(oper);
             }
+            int last_added_index = 0;
 
             for (int i = 0; i < size; i++)
             {
                 Match number;
                 Match oper;
+
 
                 _ = numbers.Count != 0 ? number = numbers.Peek() : number = null;
                 _ = operators.Count != 0 ? oper = operators.Peek() : oper = null;
@@ -219,29 +293,36 @@ namespace shuntingYard
                 if (numbers.Count != 0)
                 {
                     if (oper != null && number != null)
-                        if (number.Index < oper.Index)
+                        if (number.Index < oper.Index && number.Index >= last_added_index)
                         {
-                            if(tokens.Count != 0)
+                            if (tokens.Count != 0)
                             {
                                 string beforelastitem = "";
                                 string lastitem = tokens[tokens.Count - 1];
 
                                 _ = tokens.Count >= 2 ? beforelastitem = tokens[tokens.Count - 2] : null;
 
-                                if (beforelastitem == "^" || beforelastitem == "/" ||beforelastitem == ")" || beforelastitem =="(" || beforelastitem == "*" && lastitem == "-")
+                                if ((beforelastitem == "^" || beforelastitem == "/" || beforelastitem == ")" || beforelastitem == "(" || beforelastitem == "*") && lastitem == "-")
                                 {
                                     tokens[tokens.Count - 1] += number.ToString();
                                 }
                                 else
                                 {
+                                    last_added_index = number.Index + number.Length;
                                     tokens.Add(number.ToString());
                                 }
-                            } else
+                            }
+                            else
                             {
+                                last_added_index = number.Index + number.Length;
                                 tokens.Add(number.ToString());
                             }
 
 
+                            numbers.Dequeue();
+                        }
+                        else if (number.Index < oper.Index && number.Index <= last_added_index)
+                        {
                             numbers.Dequeue();
                         }
 
@@ -251,7 +332,7 @@ namespace shuntingYard
 
 
                     if (oper != null && number != null)
-                        if (number.Index > oper.Index)
+                        if (number.Index > oper.Index && oper.Index >= last_added_index)
                         {
                             if (tokens.Count != 0)
                             {
@@ -263,6 +344,7 @@ namespace shuntingYard
                                     //if the incoming was a +, do no addition
                                     if (oper.ToString() == "(" || oper.ToString() == ")")
                                     {
+                                        last_added_index = oper.Index + oper.Length;
                                         tokens.Add(oper.ToString());
                                     }
 
@@ -272,15 +354,8 @@ namespace shuntingYard
                                     }
                                     else if (lastitem == "+")
                                     {
-                                        if (oper.ToString() == "-")
-                                        {
-                                            tokens[tokens.Count - 1] = "-";
-                                        }
+                                        tokens[tokens.Count - 1] = oper.ToString();
 
-                                        else
-                                        {
-                                            tokens[tokens.Count - 1] = oper.ToString();
-                                        }
                                     }
                                     else if (lastitem == "*" || lastitem == "/")
                                     {
@@ -289,11 +364,27 @@ namespace shuntingYard
                                         //if incoming is a ^, repla
                                         if (oper.ToString() == "-")
                                         {
+                                            last_added_index = oper.Index + oper.Length;
+                                            tokens.Add(oper.ToString());
+                                        }
+                                        else if (oper.ToString() == "^")
+                                        {
+                                            tokens[tokens.Count - 1] = "^";
+                                        }
+                                        else if (oper.ToString() == "+")
+                                        {
+
+                                        }
+
+                                        else
+                                        {
+                                            last_added_index = oper.Index + oper.Length;
                                             tokens.Add(oper.ToString());
                                         }
                                     }
                                     else
                                     {
+                                        last_added_index = oper.Index + oper.Length;
                                         tokens.Add(oper.ToString());
                                     }
 
@@ -302,6 +393,7 @@ namespace shuntingYard
                                 }
                                 else
                                 {
+                                    last_added_index = oper.Index + oper.Length;
                                     tokens.Add(oper.ToString());
                                     operators.Dequeue();
                                 }
@@ -309,16 +401,22 @@ namespace shuntingYard
                             }
                             else
                             {
+                                last_added_index = oper.Index + oper.Length;
                                 tokens.Add(oper.ToString());
                                 operators.Dequeue();
                             }
 
                         }
-
+                        else if (oper.Index > number.Index && oper.Index >= last_added_index)
+                        {
+                            tokens.Add(oper.ToString());
+                            last_added_index = oper.Index + oper.Length;
+                            operators.Dequeue();
+                        }
                 }
                 if (oper == null && number != null)
                 {
-                    if (tokens.Count != 0)
+                    if (tokens.Count != 0 && number.Index >= last_added_index)
                     {
                         string beforelastitem = "";
                         string lastitem = tokens[tokens.Count - 1];
@@ -331,11 +429,13 @@ namespace shuntingYard
                         }
                         else
                         {
+                            last_added_index = number.Index + number.Length;
                             tokens.Add(number.ToString());
                         }
                     }
                     else
                     {
+                        last_added_index = number.Index + number.Length;
                         tokens.Add(number.ToString());
                     }
 
@@ -343,7 +443,7 @@ namespace shuntingYard
                 }
                 else if (oper != null && number == null)
                 {
-                    if (tokens.Count != 0)
+                    if (tokens.Count != 0 && oper.Index >= last_added_index)
                     {
                         //if last item is an operator, replace it with oper,else just add oper
                         string lastitem = tokens[tokens.Count - 1];
@@ -354,6 +454,7 @@ namespace shuntingYard
                         }
                         else
                         {
+                            last_added_index = oper.Index + oper.Length;
                             tokens.Add(oper.ToString());
                             operators.Dequeue();
                         }
@@ -361,6 +462,7 @@ namespace shuntingYard
                     }
                     else
                     {
+                        last_added_index = oper.Index + oper.Length;
                         tokens.Add(oper.ToString());
                         operators.Dequeue();
                     }
@@ -372,7 +474,7 @@ namespace shuntingYard
             return tokens;
         }
 
-        public float HandleMath(float n1,float n2,string Operator)
+        public float HandleMath(float n1, float n2, string Operator)
         {
             switch (Operator)
             {
@@ -389,13 +491,71 @@ namespace shuntingYard
                 case ("^"):
                     double second = (double)n2;
                     double first = (double)n1;
-                    double ans  = Math.Pow(first,second);
+                    double ans = Math.Pow(first, second);
                     return (float)ans;
-                    
+                case "max":
+                    return Math.Max(n1, n2);
+                case "min":
+                    return Math.Min(n1, n2);
+
                 default:
                     return 0;
 
             }
+        }
+
+        public double HandleOneInputMath(float n1, string Operator)
+        {
+            //purpose: calculates the result of a one-input function
+            //params: float and operator
+            //return: the result, float
+
+            switch (Operator)
+            {
+                case "abs":
+                    return Math.Abs(n1);
+                case "sin":
+
+                    return Math.Round(Math.Sin(Math.PI * n1 / 180), 15);
+                case "asin":
+                    return Math.Round(Math.Asin(Math.PI * n1 / 180), 15);
+                case "sinh":
+                    return Math.Round(Math.Sinh(Math.PI * n1 / 180), 15);
+
+
+                case "cos":
+                    return Math.Round(Math.Cos(Math.PI * n1 / 180), 15);
+                case "acos":
+                    return Math.Round(Math.Acos(Math.PI * n1 / 180), 15);
+                case "cosh":
+                    return Math.Round(Math.Cosh(Math.PI * n1 / 180), 15);
+
+                case "tan":
+                    return Math.Round(Math.Tan(Math.PI * n1 / 180), 15);
+                case "atan":
+                    return Math.Atan(n1);
+                case "tanh":
+
+                    return Math.Round(Math.Tanh(Math.PI * n1 / 180), 15);
+
+                case "log":
+                    return Math.Round(Math.Log10(n1), 15);
+                case "ln":
+                    return Math.Round(Math.Log(n1), 15);
+                default:
+                    if (Operator.Contains("log"))
+                    {
+                        Regex log_base = new Regex(@"\d+");
+                        MatchCollection number = log_base.Matches(Operator);
+                        int base_int;
+                        int.TryParse(number[0].ToString(), out base_int);
+                        return Math.Round(Math.Log(n1, base_int), 15);
+
+                    }
+                    throw new Exception("failed");
+
+            }
+
         }
 
         public float Evaluator(Queue<string> postfix)
@@ -406,40 +566,63 @@ namespace shuntingYard
              * @return: an int representing the result of the expression
              */
 
+
+
             Stack<float> eval = new Stack<float>();
-            foreach(string item in postfix)
+            foreach (string item in postfix)
             {
-                if (float.TryParse(item,out float number))
+                if (float.TryParse(item, out float number))
                 {
                     eval.Push(number);
                 }
                 else
                 {
+                    Operator @operator = new Operator(item);
                     float second = eval.Pop();
                     float result = 1;
-                    try
-                    {
-                        float first = eval.Pop();
-                        result = HandleMath(first, second, item);
-                    }
-                    catch (System.InvalidOperationException)
-                    {
-                        string intermediate = item + "1";
-                        if (float.TryParse(intermediate,out float first))
-                        {
-                            result = first * second;
-                        }
 
+                    if (@operator.IsFunction())
+                    {
+                        if (!(@operator.GetName() == "max" || @operator.GetName() == "min"))
+                        {
+                            result = (float)HandleOneInputMath(second, item);
+                        }
+                        else
+                        {
+                            float first = eval.Pop();
+                            result = HandleMath(first, second, item);
+                        }
                     }
+                    else
+                    {
+
+                        try
+                        {
+                            float first = eval.Pop();
+                            result = HandleMath(first, second, item);
+                        }
+                        catch (System.InvalidOperationException)
+                        {
+                            string intermediate = item + "1";
+                            if (float.TryParse(intermediate, out float first))
+                            {
+                                result = first * second;
+                            }
+
+                        }
+                    }
+
+
                     eval.Push(result);
 
                 }
             }
-            if(eval.Count != 0)
+            if (eval.Count != 0)
             {
                 return eval.Pop();
             }
             return 0;
+
         }
 
         public float Solve(string expression)
@@ -448,7 +631,7 @@ namespace shuntingYard
             return Evaluator(posfix);
         }
 
-      
+       
     }
 
 }
