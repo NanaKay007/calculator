@@ -17,6 +17,8 @@ A simple scientific calculator built on Dijkstra's shunting-yard algorithm. Supp
 2. In Release, you will find Calculator.exe
 3. Double click and try it out
 
+This is a preview version. It is not set for public release.
+
 
 ## Note:
 It runs on windows only 
