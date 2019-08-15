@@ -1,0 +1,15 @@
+C:\Users\jnran\Desktop\myprojects\desktop dev\Calculator\Calculator\bin\Release\Calculator.exe.config
+C:\Users\jnran\Desktop\myprojects\desktop dev\Calculator\Calculator\bin\Release\Calculator.exe
+C:\Users\jnran\Desktop\myprojects\desktop dev\Calculator\Calculator\bin\Release\Calculator.pdb
+C:\Users\jnran\Desktop\myprojects\desktop dev\Calculator\Calculator\obj\Release\MainWindow.g.cs
+C:\Users\jnran\Desktop\myprojects\desktop dev\Calculator\Calculator\obj\Release\App.g.cs
+C:\Users\jnran\Desktop\myprojects\desktop dev\Calculator\Calculator\obj\Release\Calculator_MarkupCompile.cache
+C:\Users\jnran\Desktop\myprojects\desktop dev\Calculator\Calculator\obj\Release\Calculator_MarkupCompile.lref
+C:\Users\jnran\Desktop\myprojects\desktop dev\Calculator\Calculator\obj\Release\MainWindow.baml
+C:\Users\jnran\Desktop\myprojects\desktop dev\Calculator\Calculator\obj\Release\Calculator.g.resources
+C:\Users\jnran\Desktop\myprojects\desktop dev\Calculator\Calculator\obj\Release\Calculator.Properties.Resources.resources
+C:\Users\jnran\Desktop\myprojects\desktop dev\Calculator\Calculator\obj\Release\Calculator.csproj.GenerateResource.cache
+C:\Users\jnran\Desktop\myprojects\desktop dev\Calculator\Calculator\obj\Release\Calculator.csproj.CoreCompileInputs.cache
+C:\Users\jnran\Desktop\myprojects\desktop dev\Calculator\Calculator\obj\Release\Calculator.exe
+C:\Users\jnran\Desktop\myprojects\desktop dev\Calculator\Calculator\obj\Release\Calculator.pdb
+C:\Users\jnran\Desktop\myprojects\desktop dev\Calculator\Calculator\obj\Release\Calculator.csprojAssemblyReference.cache
