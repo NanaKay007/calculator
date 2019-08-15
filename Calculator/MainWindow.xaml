@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Calculator"
         mc:Ignorable="d"
         Title="MainWindow" Height="550" Width="850">
-    <Grid Margin="10" Background="#FF1F1E1E">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -33,7 +33,7 @@
         <Label  x:Name="ResultLabel"
             Grid.ColumnSpan="11" 
             FontSize="60"
-               Foreground="White"
+               Foreground="Black"
                HorizontalAlignment="Right" 
                VerticalAlignment="Bottom">
             0
